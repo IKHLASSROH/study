@@ -1,0 +1,644 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --fire: #FF4D00;
+    --gold: #FFB800;
+    --dark: #0D0D0D;
+    --card: #1A1A1A;
+    --text: #F5F0E8;
+    --muted: #888;
+    --green: #00E676;
+    --red: #FF1744;
+  }
+
+  body-like {
+    display: block;
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+  }
+
+  #app {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 600px;
+  }
+
+  /* SCREENS */
+  .screen { display: none; padding: 1.5rem; }
+  .screen.active { display: block; }
+
+  /* SETUP SCREEN */
+  .setup-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+  }
+  .setup-header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #FF4D00, #FFB800);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+  }
+  .setup-header p {
+    color: var(--muted);
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .form-card {
+    background: var(--card);
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .form-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .form-input {
+    width: 100%;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--fire); }
+
+  .exams-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .exam-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 36px;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .exam-row input {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 0.6rem 0.8rem;
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    width: 100%;
+  }
+  .exam-row input:focus { border-color: var(--fire); }
+  .remove-btn {
+    background: #2a0000;
+    border: 1px solid #500;
+    border-radius: 8px;
+    color: var(--red);
+    font-size: 1.1rem;
+    cursor: pointer;
+    height: 36px;
+    width: 36px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .add-exam-btn {
+    background: none;
+    border: 1px dashed #333;
+    border-radius: 10px;
+    color: var(--muted);
+    padding: 0.6rem;
+    width: 100%;
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    transition: all 0.2s;
+  }
+  .add-exam-btn:hover { border-color: var(--fire); color: var(--fire); }
+
+  .cta-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #FF4D00, #FFB800);
+    border: none;
+    border-radius: 14px;
+    padding: 1rem;
+    color: #000;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 1rem;
+    letter-spacing: 0.02em;
+    transition: transform 0.15s, opacity 0.15s;
+  }
+  .cta-btn:hover { transform: scale(1.02); }
+  .cta-btn:active { transform: scale(0.98); }
+
+  /* MAIN SCREEN */
+  .main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-top: 0.5rem;
+  }
+  .greeting {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+  }
+  .greeting span { color: var(--gold); }
+  .reset-btn {
+    background: #1A1A1A;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: var(--muted);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* MEME CARD */
+  .meme-card {
+    background: linear-gradient(135deg, #1a0800, #0d0d0d);
+    border: 1px solid #FF4D00;
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .meme-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(255,77,0,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .meme-emoji { font-size: 3.5rem; margin-bottom: 0.5rem; display: block; }
+  .meme-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .meme-sub {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+  }
+  .refresh-meme {
+    background: rgba(255,77,0,0.15);
+    border: 1px solid rgba(255,77,0,0.3);
+    border-radius: 8px;
+    color: var(--fire);
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    margin-top: 1rem;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .refresh-meme:hover { background: rgba(255,77,0,0.25); }
+
+  /* EXAMS COUNTDOWN */
+  .section-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .exams-container { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem; }
+  .exam-card {
+    background: var(--card);
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    padding: 0.9rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .exam-name { font-weight: 600; font-size: 0.95rem; }
+  .exam-days {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+  }
+  .days-label { font-size: 0.65rem; color: var(--muted); text-align: right; }
+  .exam-urgent { border-color: rgba(255,23,68,0.4); background: rgba(255,23,68,0.05); }
+  .exam-urgent .exam-days { color: var(--red); }
+  .exam-warning { border-color: rgba(255,184,0,0.3); background: rgba(255,184,0,0.05); }
+  .exam-warning .exam-days { color: var(--gold); }
+  .exam-ok .exam-days { color: var(--green); }
+  .exam-done { opacity: 0.4; }
+  .exam-done .exam-days { color: var(--muted); font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif; font-weight: 400; }
+
+  /* QUOTE */
+  .quote-card {
+    background: var(--card);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 14px 14px 0;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.25rem;
+  }
+  .quote-text {
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #ccc;
+  }
+  .quote-author {
+    font-size: 0.75rem;
+    color: var(--gold);
+    margin-top: 0.4rem;
+    font-weight: 600;
+  }
+
+  /* STUDY TIMER */
+  .timer-card {
+    background: var(--card);
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    padding: 1.2rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+  .timer-display {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--fire);
+    letter-spacing: 0.05em;
+    margin: 0.5rem 0;
+  }
+  .timer-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  .timer-controls { display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.75rem; }
+  .timer-btn {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: var(--text);
+    padding: 0.5rem 1.2rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .timer-btn:hover { border-color: var(--fire); color: var(--fire); }
+  .timer-btn.active { background: var(--fire); border-color: var(--fire); color: #000; }
+
+  .session-count {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+  }
+  .session-dots { display: flex; gap: 4px; justify-content: center; margin-top: 0.4rem; }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #2a2a2a;
+  }
+  .dot.done { background: var(--fire); }
+  .dot.active { background: var(--gold); animation: pulse 1s infinite; }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* No exams msg */
+  .no-exams {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 1rem;
+    border: 1px dashed #2a2a2a;
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+  }
+</style>
+
+<div id="app">
+  <!-- SETUP SCREEN -->
+  <div id="setup" class="screen active">
+    <div class="setup-header">
+      <h1>STUDY BEAST<br>MODE 🔥</h1>
+      <p>Enter your info — we'll make sure you stay on track</p>
+    </div>
+
+    <div class="form-card">
+      <label class="form-label">Your name or nickname</label>
+      <input type="text" id="username" class="form-input" placeholder="e.g. Youssef, Rania, The Goat..." />
+    </div>
+
+    <div class="form-card">
+      <label class="form-label">Your exams (name + date)</label>
+      <div class="exams-list" id="exams-list">
+        <div class="exam-row">
+          <input type="text" placeholder="Exam name" class="ename" />
+          <input type="date" class="edate" />
+          <button class="remove-btn" onclick="removeExam(this)">×</button>
+        </div>
+      </div>
+      <button class="add-exam-btn" onclick="addExam()">+ Add another exam</button>
+    </div>
+
+    <button class="cta-btn" onclick="startApp()">LET'S GET IT 🚀</button>
+  </div>
+
+  <!-- MAIN SCREEN -->
+  <div id="main" class="screen">
+    <div class="main-header">
+      <div class="greeting">YO <span id="display-name">LEGEND</span> 👋</div>
+      <button class="reset-btn" onclick="resetApp()">⚙ Reset</button>
+    </div>
+
+    <!-- MEME MOTIVATION -->
+    <div class="meme-card" id="meme-card">
+      <span class="meme-emoji" id="meme-emoji">😤</span>
+      <div class="meme-text" id="meme-text">Loading your daily dose...</div>
+      <div class="meme-sub" id="meme-sub">Stay locked in</div>
+      <button class="refresh-meme" onclick="refreshMeme()">🔄 New motivation hit</button>
+    </div>
+
+    <!-- QUOTE -->
+    <div class="quote-card" id="quote-card">
+      <div class="quote-text" id="quote-text">"..."</div>
+      <div class="quote-author" id="quote-author">— Loading</div>
+    </div>
+
+    <!-- EXAMS COUNTDOWN -->
+    <div class="section-title">⏳ Exam countdowns</div>
+    <div class="exams-container" id="exams-display"></div>
+
+    <!-- POMODORO TIMER -->
+    <div class="section-title">🍅 Focus timer (Pomodoro)</div>
+    <div class="timer-card">
+      <div class="timer-label" id="timer-phase">Study session</div>
+      <div class="timer-display" id="timer-display">25:00</div>
+      <div class="session-dots" id="session-dots"></div>
+      <div class="session-count" id="session-count">Session 1 of 4</div>
+      <div class="timer-controls">
+        <button class="timer-btn" id="start-btn" onclick="toggleTimer()">▶ Start</button>
+        <button class="timer-btn" onclick="resetTimer()">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const memes = [
+  { emoji: "😤", text: "Your future self is WATCHING. Don't disappoint.", sub: "They're judging you rn" },
+  { emoji: "🔥", text: "The grind is ugly. The results are BEAUTIFUL.", sub: "Trust the process" },
+  { emoji: "💀", text: "Sleep is temporary. That A+ is FOREVER.", sub: "Okay maybe sleep a little" },
+  { emoji: "🦁", text: "You didn't come this far to only come this far.", sub: "Keep MOVING" },
+  { emoji: "⚡", text: "Average students study. LEGENDS study harder.", sub: "Which one are you?" },
+  { emoji: "🎯", text: "The exam doesn't care about your excuses.", sub: "But it DOES respect preparation" },
+  { emoji: "🧠", text: "Your brain is a muscle. FLEX IT.", sub: "Neural gains loading..." },
+  { emoji: "😈", text: "Be so good they can't ignore you.", sub: "Academia edition" },
+  { emoji: "🚀", text: "One day or Day one. YOU DECIDE.", sub: "Make it Day one" },
+  { emoji: "🏆", text: "Suffer now, celebrate LATER.", sub: "The math always works out" },
+  { emoji: "💪", text: "Your competitors are studying RIGHT NOW.", sub: "And you're... reading this. GO STUDY." },
+  { emoji: "🌙", text: "Late night sessions hit different.", sub: "Silence + focus = unstoppable" },
+  { emoji: "⏰", text: "Every hour you study = fewer regrets.", sub: "The equation is simple" },
+  { emoji: "🎓", text: "Imagine handing your parents that result sheet.", sub: "Make it worth their pride" },
+];
+
+const quotes = [
+  { text: "The secret of getting ahead is getting started.", author: "Mark Twain" },
+  { text: "Success is the sum of small efforts, repeated day in and day out.", author: "Robert Collier" },
+  { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+  { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+  { text: "You don't have to be great to start, but you have to start to be great.", author: "Zig Ziglar" },
+  { text: "Hard work beats talent when talent doesn't work hard.", author: "Tim Notke" },
+  { text: "Education is the most powerful weapon you can use to change the world.", author: "Nelson Mandela" },
+  { text: "Don't watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
+  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+  { text: "Study while others are sleeping; work while others are loafing.", author: "William A. Ward" },
+];
+
+let state = {
+  name: '',
+  exams: [],
+  memeIndex: 0,
+  quoteIndex: 0,
+};
+
+let timer = {
+  interval: null,
+  seconds: 25 * 60,
+  running: false,
+  session: 1,
+  phase: 'work', // work | break | longbreak
+  completedSessions: 0,
+};
+
+function addExam() {
+  const list = document.getElementById('exams-list');
+  const row = document.createElement('div');
+  row.className = 'exam-row';
+  row.innerHTML = `<input type="text" placeholder="Exam name" class="ename" /><input type="date" class="edate" /><button class="remove-btn" onclick="removeExam(this)">×</button>`;
+  list.appendChild(row);
+}
+
+function removeExam(btn) {
+  const rows = document.querySelectorAll('.exam-row');
+  if (rows.length > 1) btn.parentElement.remove();
+}
+
+function startApp() {
+  const name = document.getElementById('username').value.trim();
+  if (!name) { alert("Give us your name first! 😤"); return; }
+
+  const rows = document.querySelectorAll('.exam-row');
+  const exams = [];
+  rows.forEach(row => {
+    const n = row.querySelector('.ename').value.trim();
+    const d = row.querySelector('.edate').value;
+    if (n && d) exams.push({ name: n, date: d });
+  });
+
+  state.name = name;
+  state.exams = exams;
+  state.memeIndex = Math.floor(Math.random() * memes.length);
+  state.quoteIndex = Math.floor(Math.random() * quotes.length);
+
+  document.getElementById('display-name').textContent = name.toUpperCase();
+  renderMeme();
+  renderQuote();
+  renderExams();
+  renderTimerDots();
+
+  document.getElementById('setup').classList.remove('active');
+  document.getElementById('main').classList.add('active');
+}
+
+function resetApp() {
+  if (!confirm('Reset everything?')) return;
+  clearInterval(timer.interval);
+  timer = { interval: null, seconds: 25*60, running: false, session: 1, phase: 'work', completedSessions: 0 };
+  document.getElementById('setup').classList.add('active');
+  document.getElementById('main').classList.remove('active');
+}
+
+function refreshMeme() {
+  state.memeIndex = (state.memeIndex + 1) % memes.length;
+  state.quoteIndex = (state.quoteIndex + 1) % quotes.length;
+  renderMeme();
+  renderQuote();
+  // Animate
+  const card = document.getElementById('meme-card');
+  card.style.transform = 'scale(0.96)';
+  setTimeout(() => card.style.transform = '', 150);
+}
+
+function renderMeme() {
+  const m = memes[state.memeIndex];
+  document.getElementById('meme-emoji').textContent = m.emoji;
+  document.getElementById('meme-text').textContent = m.text;
+  document.getElementById('meme-sub').textContent = m.sub;
+}
+
+function renderQuote() {
+  const q = quotes[state.quoteIndex];
+  document.getElementById('quote-text').textContent = '"' + q.text + '"';
+  document.getElementById('quote-author').textContent = '— ' + q.author;
+}
+
+function renderExams() {
+  const container = document.getElementById('exams-display');
+  if (state.exams.length === 0) {
+    container.innerHTML = '<div class="no-exams">No exams added — add them in setup to see countdowns!</div>';
+    return;
+  }
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  const sorted = [...state.exams].sort((a,b) => new Date(a.date) - new Date(b.date));
+
+  container.innerHTML = sorted.map(exam => {
+    const examDate = new Date(exam.date);
+    examDate.setHours(0,0,0,0);
+    const diff = Math.round((examDate - today) / (1000 * 60 * 60 * 24));
+
+    let cls = 'exam-ok';
+    let daysText = diff + '';
+    let label = 'days left';
+
+    if (diff < 0) { cls = 'exam-done'; daysText = '✓ Done'; label = Math.abs(diff) + ' days ago'; }
+    else if (diff === 0) { cls = 'exam-urgent'; daysText = 'TODAY'; label = '🚨 EXAM DAY'; }
+    else if (diff === 1) { cls = 'exam-urgent'; label = 'day left — PANIC MODE'; }
+    else if (diff <= 7) { cls = 'exam-warning'; label = 'days left — hustle!'; }
+    else { label = 'days left — you got this'; }
+
+    return `<div class="exam-card ${cls}">
+      <div class="exam-name">${exam.name}</div>
+      <div>
+        <div class="exam-days">${daysText}</div>
+        <div class="days-label">${label}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// POMODORO TIMER
+const PHASES = {
+  work: { seconds: 25*60, label: 'Study session 🧠', next: 'break' },
+  break: { seconds: 5*60, label: 'Short break 😮‍💨', next: 'work' },
+  longbreak: { seconds: 15*60, label: 'Long break 🎉', next: 'work' },
+};
+
+function formatTime(s) {
+  const m = Math.floor(s / 60).toString().padStart(2,'0');
+  const sec = (s % 60).toString().padStart(2,'0');
+  return `${m}:${sec}`;
+}
+
+function renderTimerDots() {
+  const dots = document.getElementById('session-dots');
+  dots.innerHTML = Array.from({length:4}, (_,i) => {
+    let cls = 'dot';
+    if (i < timer.completedSessions % 4) cls += ' done';
+    if (i === timer.completedSessions % 4 && timer.phase === 'work') cls += ' active';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+  document.getElementById('session-count').textContent =
+    `Session ${(timer.completedSessions % 4) + 1} of 4`;
+}
+
+function toggleTimer() {
+  if (timer.running) {
+    clearInterval(timer.interval);
+    timer.running = false;
+    document.getElementById('start-btn').textContent = '▶ Resume';
+    document.getElementById('start-btn').classList.remove('active');
+  } else {
+    timer.running = true;
+    document.getElementById('start-btn').textContent = '⏸ Pause';
+    document.getElementById('start-btn').classList.add('active');
+    timer.interval = setInterval(() => {
+      timer.seconds--;
+      document.getElementById('timer-display').textContent = formatTime(timer.seconds);
+      if (timer.seconds <= 0) {
+        clearInterval(timer.interval);
+        timer.running = false;
+
+        if (timer.phase === 'work') {
+          timer.completedSessions++;
+          const isLong = timer.completedSessions % 4 === 0;
+          timer.phase = isLong ? 'longbreak' : 'break';
+        } else {
+          timer.phase = 'work';
+        }
+
+        const phase = PHASES[timer.phase];
+        timer.seconds = phase.seconds;
+        document.getElementById('timer-phase').textContent = phase.label;
+        document.getElementById('timer-display').textContent = formatTime(timer.seconds);
+        document.getElementById('start-btn').textContent = '▶ Start';
+        document.getElementById('start-btn').classList.remove('active');
+        renderTimerDots();
+        alert(timer.phase === 'work' ? '🧠 Break over! Time to study!' : '🎉 Session done! Take a break!');
+      }
+    }, 1000);
+  }
+}
+
+function resetTimer() {
+  clearInterval(timer.interval);
+  timer = { interval: null, seconds: 25*60, running: false, session: 1, phase: 'work', completedSessions: 0 };
+  document.getElementById('timer-display').textContent = '25:00';
+  document.getElementById('timer-phase').textContent = 'Study session 🧠';
+  document.getElementById('start-btn').textContent = '▶ Start';
+  document.getElementById('start-btn').classList.remove('active');
+  renderTimerDots();
+}
+
+// Set today's date as min for exam inputs
+document.querySelectorAll('.edate').forEach(i => {
+  i.min = new Date().toISOString().split('T')[0];
+});
+</script>
