@@ -15,9 +15,9 @@ Built with pure HTML + CSS + JavaScript. No frameworks, no dependencies, no excu
 ## Features
 
 ### 🧠 Personalized Setup
-- Enter your **name or nickname** — the app greets you like a legend
-- Add all your **exam names + dates** before you start
-- Everything is stored in-session (private, no server)
+- Enter your **name or nickname** — the app greets you like a legend.
+- Add all your **exam names + dates** before you start.
+- Everything is stored in-session (private, no server).
 
 ### 🔥 Daily Motivation Memes
 - 14 rotating hype cards with fire messages
