@@ -105,18 +105,10 @@ const quotes = [
 
 ## Tips for Maximum Effect
 
-- 🌙 Use it at night with dark mode — the theme is built for it.
-- 📵 Put your phone away after starting the timer.
-- 🎯 Add ALL your exams so the pressure is always visible.
-- 🔄 Refresh the motivation card whenever you feel stuck.
-- ☕ Treat long breaks seriously — your brain needs it.
+-Use it at night with dark mode — the theme is built for it.
+-Put your phone away after starting the timer.
+-Add ALL your exams so the pressure is always visible.
+-Refresh the motivation card whenever you feel stuck.
+-Treat long breaks seriously — your brain needs it.
 
 ---
-
-## License
-
-Free to use, share, and modify. Just don't use it as an excuse to procrastinate. 😤
-
----
-
-*Built with 🔥by Ikhlass and the belief that you WILL pass your exams.*
