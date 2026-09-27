@@ -1,4 +1,4 @@
-# 🔥 STUDY BEAST MODE
+# STUDY BEAST MODE
 
 > *The study motivation website that actually makes you want to open your books.*
 
