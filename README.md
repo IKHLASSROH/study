@@ -20,9 +20,9 @@ Built with pure HTML + CSS + JavaScript. No frameworks, no dependencies, no excu
 - Everything is stored in-session (private, no server).
 
 ### 🔥 Daily Motivation Memes
-- 14 rotating hype cards with fire messages
-- Hit **"New motivation hit"** to cycle through them
-- Each card pairs with a motivational quote from legends like Confucius, Nelson Mandela, and Tim Notke
+- 14 rotating hype cards with fire messages.
+- Hit **"New motivation hit"** to cycle through them.
+- Each card pairs with a motivational quote from legends like Confucius, Nelson Mandela, and Tim Notke.
 
 ### ⏳ Exam Countdown
 - Every exam shows **exact days remaining**, sorted by nearest date
