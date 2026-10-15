@@ -43,13 +43,13 @@ Built with pure HTML + CSS + JavaScript. No frameworks, no dependencies, no excu
 
 ## How to Use
 
-1. Open the app
-2. Enter your **nickname**
-3. Add your **exams** (name + date for each one)
-4. Hit **"LET'S GET IT 🚀"**
-5. Read your motivation card, check your countdowns
-6. Start the Pomodoro timer and get to work
-7. Tap **"New motivation hit"** whenever you feel like slacking
+1. Open the app.
+2. Enter your **nickname**.
+3. Add your **exams** (name + date for each one).
+4. Hit **"LET'S GET IT 🚀"**.
+5. Read your motivation card, check your countdowns.
+6. Start the Pomodoro timer and get to work.
+7. Tap **"New motivation hit"** whenever you feel like slacking.
 
 ---
 
